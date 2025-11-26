@@ -37,6 +37,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        {{-- get 2 menus --}}
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('kategori-items.index') }}">Kategori</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('master-items.index') }}">Master Items</a>
+                            </li>
+                        </ul>
+
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))

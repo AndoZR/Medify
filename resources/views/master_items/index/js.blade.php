@@ -47,13 +47,29 @@
 
                     var html = `<a href="{{url('master-items/view/')}}/` + kode + `" class="btn btn-primary">View</a>`
 
-                    $.each(item, function(obj_name, obj_value) {
-                        if (obj_name == 'laba') return false;
-                        array_temp.push(obj_value)
-                    })
-                    array_temp.push(harga_jual)
-                    array_temp.push(item.supplier)
-                    array_temp.push(html)
+                    // $.each(item, function(obj_name, obj_value) {
+                    //     if (obj_name == 'laba') return false;
+                    //     array_temp.push(obj_value)
+                    // })
+
+                    var kategori_list = '-';
+                    if (item.kategori_items && item.kategori_items.length > 0) {
+                        kategori_list = item.kategori_items.map(k => k.nama).join(', ');
+                    }
+
+                    array_temp.push(item.kode);
+                    array_temp.push(item.nama);
+                    array_temp.push(item.jenis);
+                    array_temp.push(kategori_list);                 // ⬅️ KATEGORI
+                    array_temp.push(item.harga_beli);
+                    array_temp.push(harga_jual);
+                    array_temp.push(item.supplier);
+                    array_temp.push(html);
+
+
+                    // array_temp.push(harga_jual)
+                    // array_temp.push(item.supplier)
+                    // array_temp.push(html)
 
 
                     dataTableObj.row.add(array_temp).draw(true);

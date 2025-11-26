@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class KategoriItem extends Model
+{
+    use HasFactory;
+
+    protected $table = 'kategori_items';
+
+    protected $fillable = ['kode', 'nama'];
+
+    public function masterItems()
+    {
+        return $this->belongsToMany(
+            MasterItem::class,
+            'kategori_master_item',
+            'kategori_item_id',    // FK ke kategori_items
+            'master_item_id'       // FK ke master_items
+        );
+
+    }
+
+
+}

@@ -1,4 +1,4 @@
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     @csrf
     @if($method == 'edit')
     <div class="form-group">
@@ -12,6 +12,18 @@
         <input type="text" class="form-control" name="nama" required  value="{{$item->nama ?? ''}}">
     </div>
 
+    {{-- bagian ini ngsih kolom kategori --}}
+    <label for="kategori_id">Kategori (*Pilih dengan menekan ctrl+klik untuk multi data)</label>
+    <select name="kategori_id[]" id="kategori_id" class="form-control" multiple required>
+        @foreach($kategori as $k)
+            <option value="{{ $k->id }}" 
+                {{ (isset($item) && $item->kategoriItems->contains($k->id)) ? 'selected' : '' }}>
+                {{ $k->nama }}
+            </option>
+        @endforeach
+    </select>
+
+
     <div class="form-group">
         <label>Harga Beli</label>
         <input type="number" class="form-control" name="harga_beli" required  value="{{$item->harga_beli ?? ''}}">
@@ -20,6 +32,14 @@
     <div class="form-group">
         <label>Laba (dalam persen)</label>
         <input type="number" class="form-control" name="laba" required  value="{{$item->laba ?? ''}}">
+    </div>
+
+    <div class="form-group">
+        <label>Foto Barang</label>
+        <input type="file" class="form-control" name="foto">
+        @if(isset($item->foto) && $item->foto)
+            <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto Barang" style="max-width: 150px; margin-top: 10px;">
+        @endif
     </div>
 
     @php $selected = $item->supplier ?? ''; @endphp
